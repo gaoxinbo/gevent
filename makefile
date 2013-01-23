@@ -1,4 +1,4 @@
-LIBRARY=libnet.a
+LIBRARY=libgevent.a
 PROGRAMS=
 
 all:${LIBRARY} 
@@ -15,7 +15,7 @@ CXX_FLAGS=-g -O2 -Wall -Werror -Isrc
 .cc.o:
 	g++ -c ${CXX_FLAGS} $< -o $@
 
-libnet.a:${OBJ}
+${LIBRARY}:${OBJ}
 	ar -rs $@ ${OBJ}
 
 .PHONY:clean
