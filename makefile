@@ -1,17 +1,16 @@
 LIBRARY=libgevent.a
 PROGRAMS=listen_server
-TESTS=
+GTEST=libgtest.a
 
-all:${LIBRARY} ${PROGRAMS} 
 
+all:${LIBRARY} ${PROGRAMS} ${GTEST} 
+
+libgtest.a:
+	(cd gtest;make)
+
+## automatic generate source file list
 ${shell ./build_config.sh}
 include build_config.mk
-#LIBRARY_SOURCE=src/net/socket.cc \
-               src/net/inetaddress.cc \
-               src/net/eventhandler.cc \
-               src/net/accepter.cc \
-               src/net/tcpserver.cc \
-               src/net/eventlooper.cc
 
 LISTEN_SERVER_SRC=src/example/listen_server.cc               
 LISTEN_SERVER_OBJ= ${LISTEN_SERVER_SRC:.cc=.o}              
@@ -33,6 +32,7 @@ ${LIBRARY}:${OBJ}
 .PHONY:clean
 
 clean:
+	(cd gtest;make clean)
 	rm *.o -rf
 	rm src/*/*.o -rf
 	rm ${LIBRARY} -rf
