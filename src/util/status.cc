@@ -28,6 +28,13 @@ Status::Status(const Status &status){
 Status::~Status(){
 }
 
+void Status::operator=(const Status &status){
+  m_status = status.m_status;
+  m_msg = status.m_msg;
+  m_stderr = status.m_stderr;
+}
+
+
 string Status::ToString(){
   string result;
   static char * status_format[kStatusLength] = {

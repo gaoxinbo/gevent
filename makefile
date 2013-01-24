@@ -1,9 +1,10 @@
 LIBRARY=libgevent.a
 PROGRAMS=listen_server
 GTEST=libgtest.a
+TEST=test_status
 
 
-all:${LIBRARY} ${PROGRAMS} ${GTEST} 
+all:${LIBRARY} ${PROGRAMS} ${GTEST} ${TEST} 
 
 libgtest.a:
 	(cd gtest;make)
@@ -12,18 +13,24 @@ libgtest.a:
 ${shell ./build_config.sh}
 include build_config.mk
 
-LISTEN_SERVER_SRC=src/example/listen_server.cc               
-LISTEN_SERVER_OBJ= ${LISTEN_SERVER_SRC:.cc=.o}              
+GTEST_DIR=gtest
 
 OBJ=${SOURCE:.cc=.o}
 
-CXX_FLAGS=-g -O2 -Wall -Werror -Isrc
-LD_FLAGS=-g
+CXX_FLAGS=-g -O2 -Wall -Werror -Isrc -I${GTEST_DIR}/include
+LD_FLAGS=-g -lpthread
+
+
+test_status:src/util/status_test.o
+	g++ -o $@ $< ${CXX_FLAGS} ${LD_FLAGS} ${GTEST_DIR}/${GTEST} ${LIBRARY}
+
+check:${LIBRARY} ${TEST}
+	for t in ${TEST};do echo "running $$t......"; ./$$t || exit 1; done
 
 .cc.o:
 	g++ -c ${CXX_FLAGS} $< -o $@
 
-listen_server:${LISTEN_SERVER_OBJ} ${LIBRARY} 
+listen_server:src/example/listen_server.o ${LIBRARY} 
 	g++ -o $@ ${LD_FLAGS} $^
 
 ${LIBRARY}:${OBJ}
@@ -37,3 +44,5 @@ clean:
 	rm src/*/*.o -rf
 	rm ${LIBRARY} -rf
 	rm ${PROGRAMS} -rf
+	rm ${TEST} -rf
+  

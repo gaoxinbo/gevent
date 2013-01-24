@@ -25,6 +25,7 @@ class Status {
     Status(StatusCode code, std::string msg, std::string stderror);
     Status(const Status&);
     ~Status();
+    void operator=(const Status&);
 
     std::string ToString();
     inline bool OK(){
@@ -47,7 +48,6 @@ class Status {
     std::string m_msg;
     std::string m_stderr;
 
-    void operator=(const Status&);
 };
 
 }  // namespace util
