@@ -2,7 +2,7 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/tcpserver.h"
-namespace network {
+namespace gevent {
 namespace net {
 
 TcpServer::TcpServer() {
@@ -17,5 +17,5 @@ bool TcpServer::Listen(unsigned short port) {
 }
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 

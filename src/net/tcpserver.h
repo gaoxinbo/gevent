@@ -9,7 +9,7 @@
 
 #include "net/accepter.h"
 
-namespace network {
+namespace gevent {
 namespace net {
 
 class TcpServer {
@@ -27,6 +27,6 @@ class TcpServer {
 };
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 #endif  // _TCPSERVER_H_
 

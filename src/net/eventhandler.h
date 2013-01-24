@@ -6,7 +6,7 @@
 
 #ifndef _EVENTHANLDER_H_
 #define _EVENTHANLDER_H_
-namespace network {
+namespace gevent {
 namespace net {
 
 class EventHandler {
@@ -15,9 +15,7 @@ class EventHandler {
     virtual ~EventHandler();
 
     virtual void OnRead() = 0;
-    virtual void OnConnect() = 0;
     virtual void OnWrite() = 0;
-    virtual void OnClose() = 0;
 
   private:
     EventHandler(const EventHandler&);
@@ -25,6 +23,6 @@ class EventHandler {
 };
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 #endif  // _EVENTHANLDER_H_
 

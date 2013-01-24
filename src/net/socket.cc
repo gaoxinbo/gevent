@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-namespace network {
+namespace gevent {
 namespace net {
 
 Socket::Socket() {
@@ -18,7 +18,7 @@ Socket::~Socket() {
     close(m_fd);
 }
 
-bool Socket::CreateSocket() {
+bool Socket::CreateServerSocket() {
   m_fd = socket(AF_INET, SOCK_STREAM, 0);
   if (m_fd == -1)
     return false;
@@ -56,10 +56,10 @@ void Socket::SetBlocking(bool blocking) {
 }
 
 void Socket::SetReuse(bool reuse) {
-  bool flag = reuse;
-  setsockopt(m_fd, SOL_SOCKET, SO_REUSEADDR, (const void *)&flag, sizeof(flag));
+  int opt = reuse ? 1 : 0;
+  setsockopt(m_fd, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
 }
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 

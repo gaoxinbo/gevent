@@ -5,7 +5,7 @@
 
 #include <string.h>
 
-namespace network {
+namespace gevent {
 namespace net {
 
 InetAddress::InetAddress() {
@@ -22,5 +22,5 @@ InetAddress::~InetAddress() {
 }
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 

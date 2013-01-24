@@ -2,7 +2,7 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/accepter.h"
-namespace network {
+namespace gevent {
 namespace net {
 
 Accepter::Accepter() {
@@ -11,9 +11,16 @@ Accepter::Accepter() {
 Accepter::~Accepter() {
 }
 
+void Accepter::OnRead(){
+}
+
+void Accepter::OnWrite(){
+  return;
+}
+
 bool Accepter::Listen(unsigned short port) {
   m_address.SetPort(port);
-  bool ret = m_socket.CreateSocket();
+  bool ret = m_socket.CreateServerSocket();
   if (!ret)
     return false;
 
@@ -27,5 +34,5 @@ bool Accepter::Listen(unsigned short port) {
 }
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 

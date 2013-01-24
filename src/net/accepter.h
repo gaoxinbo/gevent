@@ -7,15 +7,19 @@
 #ifndef _ACCEPTER_H_
 #define _ACCEPTER_H_
 
+#include "net/eventhandler.h"
 #include "net/inetaddress.h"
 #include "net/socket.h"
-namespace network {
+namespace gevent {
 namespace net {
 
-class Accepter {
+class Accepter : public EventHandler{
   public:
     Accepter();
-    ~Accepter();
+    virtual ~Accepter();
+
+    virtual void OnRead();
+    virtual void OnWrite();
 
     bool Listen(unsigned short port);
 
@@ -28,6 +32,6 @@ class Accepter {
 };
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 #endif  // _ACCEPTER_H_
 

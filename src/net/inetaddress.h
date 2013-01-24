@@ -9,7 +9,7 @@
 
 #include "netinet/in.h"
 
-namespace network {
+namespace gevent {
 namespace net {
 
 class InetAddress {
@@ -27,6 +27,10 @@ class InetAddress {
         return &m_addr;
     }
 
+    inline void setSockAddr(const sockaddr_in &addr) {
+      m_addr = addr;
+    }
+
   private:
     sockaddr_in m_addr;
 
@@ -34,6 +38,6 @@ class InetAddress {
 };
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 #endif  // _INETADDRESS_H_
 

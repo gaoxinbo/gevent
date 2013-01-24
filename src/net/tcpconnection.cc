@@ -2,9 +2,9 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/tcpconnection.h"
-namespace network {
+namespace gevent {
 namespace net {
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 

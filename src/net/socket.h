@@ -8,7 +8,7 @@
 #define _SOCKET_H_
 
 #include "net/inetaddress.h"
-namespace network {
+namespace gevent {
 namespace net {
 
 class Socket {
@@ -16,7 +16,7 @@ class Socket {
     Socket();
     ~Socket();
 
-    bool CreateSocket();
+    bool CreateServerSocket();
     bool BindAndListen(const InetAddress &address) const;
 
     void SetBlocking(bool blocking);
@@ -30,6 +30,6 @@ class Socket {
 };
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 #endif  // _SOCKET_H_
 

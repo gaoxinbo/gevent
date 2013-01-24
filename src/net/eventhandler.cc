@@ -2,7 +2,7 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/eventhandler.h"
-namespace network {
+namespace gevent {
 namespace net {
 
 EventHandler::EventHandler() {
@@ -12,5 +12,5 @@ EventHandler::~EventHandler() {
 }
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 

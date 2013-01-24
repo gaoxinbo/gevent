@@ -6,7 +6,7 @@
 
 #ifndef _TCPCONNECTION_H_
 #define _TCPCONNECTION_H_
-namespace network {
+namespace gevent {
 namespace net {
 
 class TcpConnection {
@@ -20,6 +20,6 @@ class TcpConnection {
 };
 
 }  // namespace net
-}  // namespace network
+}  // namespace gevent
 #endif  // _TCPCONNECTION_H_
 
