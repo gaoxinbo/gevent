@@ -4,7 +4,9 @@ TESTS=
 
 all:${LIBRARY} ${PROGRAMS} 
 
-LIBRARY_SOURCE=src/net/socket.cc \
+${shell ./build_config.sh}
+include build_config.mk
+#LIBRARY_SOURCE=src/net/socket.cc \
                src/net/inetaddress.cc \
                src/net/eventhandler.cc \
                src/net/accepter.cc \
@@ -14,7 +16,7 @@ LIBRARY_SOURCE=src/net/socket.cc \
 LISTEN_SERVER_SRC=src/example/listen_server.cc               
 LISTEN_SERVER_OBJ= ${LISTEN_SERVER_SRC:.cc=.o}              
 
-OBJ=${LIBRARY_SOURCE:.cc=.o}
+OBJ=${SOURCE:.cc=.o}
 
 CXX_FLAGS=-g -O2 -Wall -Werror -Isrc
 LD_FLAGS=-g
