@@ -11,6 +11,7 @@ namespace gevent {
 namespace net {
 
 Accepter::Accepter() {
+  m_server = NULL;
 }
 
 Accepter::~Accepter() {
@@ -20,7 +21,6 @@ void Accepter::OnRead(){
   Socket *socket;
   while((socket = m_socket.Accept()) != NULL){
     InetAddress addr = socket->GetRemoteAddr();
-    cout<<addr.ToString()<<endl;
   }
 }
 

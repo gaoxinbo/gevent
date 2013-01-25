@@ -17,8 +17,10 @@ namespace net {
 class InetAddress {
   public:
     InetAddress();
+    InetAddress(const char *ip, unsigned short port);
     InetAddress(const InetAddress& addr);
     ~InetAddress();
+    void operator=(const InetAddress&);
 
     inline void SetPort(unsigned short port) {
         m_addr.sin_port = htons(port);
@@ -44,7 +46,6 @@ class InetAddress {
   private:
     sockaddr_in m_addr;
 
-    void operator=(const InetAddress&);
 };
 
 }  // namespace net

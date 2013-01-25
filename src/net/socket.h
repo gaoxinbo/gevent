@@ -22,6 +22,7 @@ class Socket {
 
     util::Status CreateServerSocket();
     util::Status BindAndListen(const InetAddress &address) const;
+    util::Status Connect(const char *ip, unsigned short port);
 
     void SetBlocking(bool blocking);
     void SetReuse(bool reuse);

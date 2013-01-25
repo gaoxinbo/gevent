@@ -26,6 +26,7 @@ class TcpServer {
     unsigned int m_port;
     Accepter m_accepter; 
     EventLooper m_looper;
+
     TcpServer(const TcpServer&);
     void operator=(const TcpServer&);
 };

@@ -15,6 +15,8 @@
 namespace gevent {
 namespace net {
 
+class TcpServer;
+
 class Accepter : public EventHandler{
   public:
     Accepter();
@@ -28,9 +30,14 @@ class Accepter : public EventHandler{
       return m_socket.GetFd();
     }
 
+    inline void SetTcpServer(TcpServer *server){
+      m_server = server;
+    }
+
   private:
     InetAddress m_address;
     Socket m_socket;
+    TcpServer *m_server;
 
     Accepter(const Accepter&);
     void operator=(const Accepter&);

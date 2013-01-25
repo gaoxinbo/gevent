@@ -9,6 +9,7 @@ namespace gevent {
 namespace net {
 
 TcpServer::TcpServer() {
+  m_accepter.SetTcpServer(this);
 }
 
 TcpServer::~TcpServer() {

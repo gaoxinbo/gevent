@@ -96,6 +96,19 @@ InetAddress Socket::GetRemoteAddr() {
   return address;
 }
 
+Status Socket::Connect(const char *ip, unsigned short port) {
+  sockaddr_in addr;
+  addr.sin_family = AF_INET;
+  inet_pton(AF_INET, ip, &addr.sin_addr);
+  addr.sin_port = htons(port);
+
+  int ret = connect(m_fd, (sockaddr *)&addr, sizeof(addr));
+  if(ret == -1)
+    return Status::IOError("connect error", strerror(errno));
+
+  return Status();
+}
+
 }  // namespace net
 }  // namespace gevent
 

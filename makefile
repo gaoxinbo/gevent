@@ -1,5 +1,5 @@
 LIBRARY=libgevent.a
-PROGRAMS=listen_server
+PROGRAMS=listen_server connection
 GTEST=libgtest.a
 TEST=test_status
 
@@ -33,6 +33,8 @@ check:${LIBRARY} ${TEST}
 listen_server:src/example/listen_server.o ${LIBRARY} 
 	g++ -o $@ ${LD_FLAGS} $^
 
+connection:src/example/connection.o ${LIBRARY} 
+	g++ -o $@ ${LD_FLAGS} $^
 ${LIBRARY}:${OBJ}
 	ar -rs $@ ${OBJ}
 
