@@ -10,6 +10,8 @@
 #include "net/eventhandler.h"
 #include "net/inetaddress.h"
 #include "net/socket.h"
+#include "util/status.h"
+
 namespace gevent {
 namespace net {
 
@@ -21,7 +23,7 @@ class Accepter : public EventHandler{
     virtual void OnRead();
     virtual void OnWrite();
 
-    bool Listen(unsigned short port);
+    util::Status Listen(unsigned short port);
 
   private:
     InetAddress m_address;

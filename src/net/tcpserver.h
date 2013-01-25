@@ -8,6 +8,7 @@
 #define _TCPSERVER_H_
 
 #include "net/accepter.h"
+#include "util/status.h"
 
 namespace gevent {
 namespace net {
@@ -17,7 +18,7 @@ class TcpServer {
     TcpServer();
     ~TcpServer();
 
-    bool Listen(unsigned short port);
+    util::Status Listen(unsigned short port);
 
   private:
     unsigned int m_port;

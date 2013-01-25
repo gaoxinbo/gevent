@@ -22,7 +22,7 @@ class Status {
     };
 
     Status();
-    Status(StatusCode code, std::string msg, std::string stderror);
+    explicit Status(StatusCode code, std::string msg, std::string stderror);
     Status(const Status&);
     ~Status();
     void operator=(const Status&);

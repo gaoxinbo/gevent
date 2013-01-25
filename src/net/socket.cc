@@ -3,8 +3,12 @@
 
 #include "net/socket.h"
 #include <sys/socket.h>
+
+#include "errno.h"
 #include <fcntl.h>
 #include <unistd.h>
+
+using namespace gevent::util;
 
 namespace gevent {
 namespace net {
@@ -18,28 +22,28 @@ Socket::~Socket() {
     close(m_fd);
 }
 
-bool Socket::CreateServerSocket() {
+Status Socket::CreateServerSocket() {
   m_fd = socket(AF_INET, SOCK_STREAM, 0);
   if (m_fd == -1)
-    return false;
+    return Status::IOError("Create Socket error", strerror(errno));
   else
-    return true;
+    return Status();
 }
 
-bool Socket::BindAndListen(const InetAddress &address) const {
+Status Socket::BindAndListen(const InetAddress &address) const {
   if (m_fd == -1)
-    return false;
+    return Status::IllegalArgument("the fd to bind is -1","");
   InetAddress temp = address;
   sockaddr_in *addr = temp.GetSockAddr();
   int ret = bind(m_fd, reinterpret_cast<sockaddr *>(addr), sizeof(*addr));
   if (ret == -1)
-    return false;
+    return Status::IOError("bind error", strerror(errno));
 
   ret = listen(m_fd, 512);
   if (ret == -1)
-    return false;
+    return Status::IOError("listen error", strerror(errno));
 
-  return true;
+  return Status();
 }
 
 void Socket::SetBlocking(bool blocking) {

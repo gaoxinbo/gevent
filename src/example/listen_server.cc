@@ -5,12 +5,17 @@
 
 using namespace std;
 using namespace gevent::net;
-int main() {
+using namespace gevent::util;
 
+int main(int argc, char **argv) {
+  int port = 9999;
+  if(argc >= 2)
+    port = atoi(argv[1]);
   TcpServer server;
-  bool ret = server.Listen(9999);
-  if(!ret) {
-    cout<<"listen 9999 error"<<endl;
+  Status s= server.Listen(port);
+  if(!s.OK()) {
+    cout<<s.ToString()<<endl;
+    return 1;
   }
 
   while(1){

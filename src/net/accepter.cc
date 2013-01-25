@@ -2,6 +2,9 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/accepter.h"
+
+using namespace gevent::util;
+
 namespace gevent {
 namespace net {
 
@@ -18,19 +21,17 @@ void Accepter::OnWrite(){
   return;
 }
 
-bool Accepter::Listen(unsigned short port) {
+Status Accepter::Listen(unsigned short port) {
   m_address.SetPort(port);
-  bool ret = m_socket.CreateServerSocket();
-  if (!ret)
-    return false;
+  Status s= m_socket.CreateServerSocket();
+  if (!s.OK())
+    return s;
 
   m_socket.SetBlocking(false);
   m_socket.SetReuse(true);
 
-  ret = m_socket.BindAndListen(m_address);
-  if (!ret)
-    return false;
-  return true;
+  s = m_socket.BindAndListen(m_address);
+  return s;
 }
 
 }  // namespace net

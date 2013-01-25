@@ -2,6 +2,8 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/tcpserver.h"
+
+using namespace gevent::util;
 namespace gevent {
 namespace net {
 
@@ -11,9 +13,10 @@ TcpServer::TcpServer() {
 TcpServer::~TcpServer() {
 }
 
-bool TcpServer::Listen(unsigned short port) {
+Status TcpServer::Listen(unsigned short port) {
   m_port = port;
-  return m_accepter.Listen(port);
+  Status s = m_accepter.Listen(port);
+  return s;
 }
 
 }  // namespace net

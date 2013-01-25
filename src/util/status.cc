@@ -44,10 +44,11 @@ string Status::ToString(){
   };
 
   result = status_format[m_status];
+  result += " - ";
   if(m_msg.size()>0)
-    result += " " + m_msg;
+    result += m_msg + " ";
   if(m_stderr.size()>0)
-    result += " :" + m_stderr;
+    result += ":" + m_stderr;
   
   return result;
 }
