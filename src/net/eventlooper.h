@@ -8,6 +8,7 @@
 #define _EVENTLOOPER_H_
 
 #include "net/eventhandler.h"
+#include "util/status.h"
 namespace gevent {
 namespace net {
 
@@ -16,9 +17,10 @@ class EventLooper {
     EventLooper();
     ~EventLooper();
 
-    bool init();
-    bool SetEvent(EventHandler *handler, int fd, bool readable, bool writable);
-    bool RemoveEvent(EventHandler *handler, int fd);
+    util::Status init();
+    util::Status SetEvent(EventHandler *handler, int fd, bool readable, bool writable);
+    util::Status RemoveEvent(EventHandler *handler, int fd);
+    void Run();
 
   private:
     int m_epoll_fd;

@@ -2,12 +2,14 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/socket.h"
+#include "net/constant.h"
 #include <sys/socket.h>
-
-#include "errno.h"
+#include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <iostream>
 
+using namespace std;
 using namespace gevent::util;
 
 namespace gevent {
@@ -17,9 +19,17 @@ Socket::Socket() {
   m_fd = -1;
 }
 
+Socket::Socket(const Socket &socket) {
+  m_fd = socket.m_fd;
+}
+
 Socket::~Socket() {
   if (m_fd != -1)
     close(m_fd);
+}
+
+void Socket::operator=(const Socket &socket) {
+  m_fd = socket.m_fd;
 }
 
 Status Socket::CreateServerSocket() {
@@ -39,7 +49,7 @@ Status Socket::BindAndListen(const InetAddress &address) const {
   if (ret == -1)
     return Status::IOError("bind error", strerror(errno));
 
-  ret = listen(m_fd, 512);
+  ret = listen(m_fd, kListenBaklog);
   if (ret == -1)
     return Status::IOError("listen error", strerror(errno));
 
@@ -62,6 +72,28 @@ void Socket::SetBlocking(bool blocking) {
 void Socket::SetReuse(bool reuse) {
   int opt = reuse ? 1 : 0;
   setsockopt(m_fd, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
+}
+
+Socket *Socket::Accept() {
+  InetAddress address;
+  Socket *result = NULL;
+
+  socklen_t len = sizeof(*address.GetSockAddr());
+  int client_fd = accept(m_fd, (sockaddr *)address.GetSockAddr(), &len);
+  if(client_fd == -1){
+    return result;
+  }
+
+  result = new Socket();
+  result->SetFd(client_fd);
+  return result;
+}
+
+InetAddress Socket::GetRemoteAddr() {
+  InetAddress address;
+  socklen_t len = sizeof(address.GetSockAddr());
+  getsockname(m_fd, (sockaddr *)address.GetSockAddr(), &len);
+  return address;
 }
 
 }  // namespace net

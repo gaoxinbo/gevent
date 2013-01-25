@@ -8,6 +8,7 @@
 #define _TCPSERVER_H_
 
 #include "net/accepter.h"
+#include "net/eventlooper.h"
 #include "util/status.h"
 
 namespace gevent {
@@ -19,10 +20,12 @@ class TcpServer {
     ~TcpServer();
 
     util::Status Listen(unsigned short port);
+    void Run();
 
   private:
     unsigned int m_port;
     Accepter m_accepter; 
+    EventLooper m_looper;
     TcpServer(const TcpServer&);
     void operator=(const TcpServer&);
 };

@@ -24,6 +24,9 @@ class Accepter : public EventHandler{
     virtual void OnWrite();
 
     util::Status Listen(unsigned short port);
+    inline int GetFd(){
+      return m_socket.GetFd();
+    }
 
   private:
     InetAddress m_address;

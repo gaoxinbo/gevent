@@ -2,7 +2,9 @@
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
 #include "net/accepter.h"
+#include <iostream>
 
+using namespace std;
 using namespace gevent::util;
 
 namespace gevent {
@@ -15,6 +17,11 @@ Accepter::~Accepter() {
 }
 
 void Accepter::OnRead(){
+  Socket *socket;
+  while((socket = m_socket.Accept()) != NULL){
+    InetAddress addr = socket->GetRemoteAddr();
+    cout<<addr.ToString()<<endl;
+  }
 }
 
 void Accepter::OnWrite(){

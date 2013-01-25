@@ -16,19 +16,29 @@ namespace net {
 class Socket {
   public:
     Socket();
+    Socket(const Socket &);
     ~Socket();
+    void operator=(const Socket&);
 
     util::Status CreateServerSocket();
     util::Status BindAndListen(const InetAddress &address) const;
 
     void SetBlocking(bool blocking);
     void SetReuse(bool reuse);
+    Socket *Accept();
+    InetAddress GetRemoteAddr();
+
+    inline int GetFd(){
+      return m_fd;
+    }
+
+    inline void SetFd(int fd){
+      m_fd = fd;
+    }
 
   private:
     int m_fd;  // socket fd
 
-    Socket(const Socket&);
-    void operator=(const Socket&);
 };
 
 }  // namespace net

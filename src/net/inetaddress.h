@@ -7,7 +7,9 @@
 #ifndef _INETADDRESS_H_
 #define _INETADDRESS_H_
 
-#include "netinet/in.h"
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <string>
 
 namespace gevent {
 namespace net {
@@ -29,6 +31,14 @@ class InetAddress {
 
     inline void setSockAddr(const sockaddr_in &addr) {
       m_addr = addr;
+    }
+
+    std::string ToString(){
+      char buf[64];
+      inet_ntop(AF_INET, &m_addr.sin_addr, buf, 64);
+      std::string result;
+      result = buf;
+      return result;
     }
 
   private:
