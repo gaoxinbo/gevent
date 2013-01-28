@@ -8,6 +8,10 @@ namespace net {
 
 TcpConnection::TcpConnection(){
   m_socket = NULL;
+  time_t now = time(NULL);
+  m_start = now;
+  m_lastactive = now;
+  m_timeout = 10;
 }
 
 TcpConnection::~TcpConnection(){

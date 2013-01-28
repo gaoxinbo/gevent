@@ -37,6 +37,11 @@ class Socket {
       m_fd = fd;
     }
 
+    inline void ShutDown(){
+      if(m_fd != -1)
+        shutdown(m_fd, SHUT_WR);
+    }
+
   private:
     int m_fd;  // socket fd
 

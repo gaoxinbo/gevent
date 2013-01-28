@@ -79,10 +79,10 @@ Socket *Socket::Accept() {
   Socket *result = NULL;
 
   socklen_t len = sizeof(*address.GetSockAddr());
-  int client_fd = accept(m_fd, (sockaddr *)address.GetSockAddr(), &len);
-  if(client_fd == -1){
+  int client_fd = -1;
+  client_fd = accept(m_fd, (sockaddr *)address.GetSockAddr(), &len);
+  if(client_fd == -1)
     return result;
-  }
 
   result = new Socket();
   result->SetFd(client_fd);
