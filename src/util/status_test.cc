@@ -10,7 +10,7 @@ TEST(test_status,OK){
   EXPECT_EQ(s.OK(), true);
   s= Status::IOError("ioerror","test");
   EXPECT_EQ(s.OK(), false);
-  EXPECT_EQ("IOError ioerror :test",s.ToString());
+  EXPECT_EQ("IOError - ioerror :test",s.ToString());
   
 }
 
