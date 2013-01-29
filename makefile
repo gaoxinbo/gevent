@@ -1,7 +1,7 @@
 LIBRARY=libgevent.a
 PROGRAMS=listen_server connection
 GTEST=libgtest.a
-TEST=test_status
+TEST=test_status test_buffer
 
 
 all:${LIBRARY} ${PROGRAMS} ${GTEST} ${TEST} 
@@ -22,6 +22,8 @@ CXX_FLAGS=-g -O2 -Wall -Werror ${INCLUDE}
 LD_FLAGS=-g -lpthread
 
 
+test_buffer:src/net/databuffer_test.o
+	g++ -o $@ $< ${CXX_FLAGS} ${LD_FLAGS} ${GTEST_DIR}/${GTEST} ${LIBRARY}
 test_status:src/util/status_test.o
 	g++ -o $@ $< ${CXX_FLAGS} ${LD_FLAGS} ${GTEST_DIR}/${GTEST} ${LIBRARY}
 
