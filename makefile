@@ -17,7 +17,8 @@ GTEST_DIR=gtest
 
 OBJ=${SOURCE:.cc=.o}
 
-CXX_FLAGS=-g -O2 -Wall -Werror -Isrc -I${GTEST_DIR}/include
+INCLUDE=-Isrc -I${GTEST_DIR}/include
+CXX_FLAGS=-g -O2 -Wall -Werror ${INCLUDE}
 LD_FLAGS=-g -lpthread
 
 
