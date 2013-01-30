@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 using namespace gevent::util;
@@ -102,9 +103,17 @@ Status Socket::Connect(const char *ip, unsigned short port) {
   inet_pton(AF_INET, ip, &addr.sin_addr);
   addr.sin_port = htons(port);
 
-  int ret = connect(m_fd, (sockaddr *)&addr, sizeof(addr));
-  if(ret == -1)
-    return Status::IOError("connect error", strerror(errno));
+  int ret = 0;
+  while( (ret = connect(m_fd, (sockaddr *)&addr, sizeof(addr))) != 0){
+    switch(errno) {
+      case EINTR:
+        continue;
+      default:
+        ostringstream oss;
+        oss<<"connect to " << ip <<":"<<port<<" error";
+        return Status::IOError(oss.str(), strerror(errno));
+    }
+  }
 
   return Status();
 }

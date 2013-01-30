@@ -31,8 +31,11 @@ Status TcpConnection::Connect(const char *ip, unsigned short port){
     return s;
 
   s = m_socket->Connect(ip, port);
-  if(!s.OK())
+  if(!s.OK()) {
+    delete m_socket;
+    m_socket = NULL;
     return s;
+  }
   m_peer = m_socket->GetRemoteAddr();
   return s;
 }
