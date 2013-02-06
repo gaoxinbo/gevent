@@ -19,6 +19,7 @@ OBJ=${SOURCE:.cc=.o}
 
 INCLUDE=-Isrc -I${GTEST_DIR}/include
 CXX_FLAGS=-g -O2 -Wall -Werror ${INCLUDE}
+#CXX_FLAGS=-g -ggdb -Wall -Werror ${INCLUDE}
 LD_FLAGS=-g -lpthread
 
 
