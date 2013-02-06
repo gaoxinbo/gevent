@@ -12,6 +12,7 @@ namespace net {
 
 const int kEpollSize = 512;
 const int kListenBaklog = 512;
+const int kDatabufLen = 2048;
 
 }  // namespace net
 }  // namespace gevent
